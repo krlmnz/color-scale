@@ -1,0 +1,80 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background: hsl(65, 16%, 96%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: transparent;
+    padding: 8px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 2rem;
+}
+
+#output {
+    margin-top: 8px;
+}
+
+.color-scale-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.color-swatches {
+    display: flex;
+    flex-direction: row;
+    margin-right: 32px;
+}
+
+.color-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 16px;
+    
+}
+
+.color-box {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0px;
+    border: 1px solid #10908c;
+    background: #fff;
+}
+
+.color-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-container {
+    flex-grow: 1;
+    margin-bottom: 24px;
+}
+
+.navbar {
+    margin-bottom: 32px;
+}
+
+.table thead {
+    background: hsla(0, 0%, 96%, 1);
+    border-bottom: 2px solid hsla(0, 0%, 92%, 1);
+}
+
+.table tbody tr {
+    background: hsla(0, 0%, 100%, 1);
+}
+
+.table td, .table th {
+    background-color: #fff;
+}
+
+.editable {
+    cursor: pointer;
+}
