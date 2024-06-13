@@ -1,22 +1,7 @@
 const popularColors = [
-    "#FFC000", // Pantone 101
-    "#FFF700", // Process Yellow-2
-    "#D1E231", // Pantone 374
-    "#A5C8E1", // Pantone 304
-    "#78BFE4", // Pantone 305
-    "#1CA0E0", // Process Cyan-2
-    "#009688", // Pantone 345
-    "#EF5350", // Pantone 210
-    "#E91E63", // Process Magenta-2
-    "#9E9D24", // Pantone 123
-    "#FF5722", // Pantone Orange 021
-    "#F44336", // Pantone Red 032
-    "#00796B", // Pantone 327
-    "#5D4037", // Pantone 329
-    "#3F51B5", // Pantone 286
-    "#1A237E", // Pantone 266
-    "#4CAF50", // Pantone 354
-    "#607D8B", // Pantone 429
+    "#FFC000", "#FFF700", "#D1E231", "#A5C8E1", "#78BFE4", "#1CA0E0",
+    "#009688", "#EF5350", "#E91E63", "#9E9D24", "#FF5722", "#F44336",
+    "#00796B", "#5D4037", "#3F51B5", "#1A237E", "#4CAF50", "#607D8B",
 ];
 
 function getRandomColors() {
@@ -24,17 +9,24 @@ function getRandomColors() {
     return shuffled.slice(0, 3);
 }
 
-function setInitialColors() {
-    const colors = getRandomColors().join(', ');
-    document.getElementById('colors').value = colors;
-    generateInitialColorScales(colors);
+function getRandomLightness() {
+    const lightnessMin = Math.floor(Math.random() * 41); // Random between 0 and 40
+    const lightnessMax = lightnessMin + 60; // Ensure at least a 60 lightness difference
+    return { lightnessMin, lightnessMax };
 }
 
-function generateInitialColorScales(colorsInput) {
+function setInitialColors() {
+    const colors = getRandomColors().join(', ');
+    const { lightnessMin, lightnessMax } = getRandomLightness();
+    document.getElementById('colors').value = colors;
+    document.getElementById('lightnessMin').value = lightnessMin;
+    document.getElementById('lightnessMax').value = lightnessMax;
+    generateInitialColorScales(colors, lightnessMin, lightnessMax);
+}
+
+function generateInitialColorScales(colorsInput, lightnessMin, lightnessMax) {
     const colors = colorsInput.split(',').map(color => parseColor(color.trim()));
-    const steps = parseInt(document.getElementById('steps').value.trim());
-    const lightnessMin = parseInt(document.getElementById('lightnessMin').value.trim());
-    const lightnessMax = parseInt(document.getElementById('lightnessMax').value.trim());
+    const steps = 6;
 
     if (colors.length > 0 && steps > 1 && lightnessMin >= 0 && lightnessMax <= 100) {
         generateColorScales(colors, steps, lightnessMin, lightnessMax);
@@ -57,7 +49,6 @@ document.getElementById('colorForm').addEventListener('submit', function(event) 
 });
 
 function parseColor(color) {
-    // Handle different color formats
     if (color.startsWith('hsl')) {
         const hsl = color.match(/\d+/g).map(Number);
         return { type: 'hsl', values: hsl };
